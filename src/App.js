@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header'
+import Countdown from './components/Countdown'
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Header />
