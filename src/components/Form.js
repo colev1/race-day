@@ -11,7 +11,8 @@ class Form extends Component {
         this.state = {
             month: '',
             day: '',
-            date: ''
+            date: '',
+            time: 0
         }
     }
 
@@ -26,7 +27,7 @@ class Form extends Component {
         const months = [
             'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
           ]
-        const date = new Date (2019, months.indexOf(this.state.month))
+        const date = new Date (2019, months.indexOf(this.state.month), this.state.day, this.state.time.slice(0,2), this.state.time.slice(3,5))
         this.setState({
             date
         })
@@ -52,7 +53,8 @@ class Form extends Component {
             <div>
                 <form onSubmit={this.startCountdown}>
                     <Dropdown options={months} onChange={this.setMonth} value={this.state.month} placeholder="month" />
-                    <input placeholder='day'/>
+                    <input type="number" min="1" max="31" placeholder='day' onChange={(e) => this.setState({day: e.target.value})} value={this.state.day}/>
+                    <input type="time" onChange={(e) => this.setState({time: e.target.value})} value={this.state.time}/>
                     <button> start countdown </button>
                 </form>
                 <Countdown
