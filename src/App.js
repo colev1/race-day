@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header'
-import Countdown from './components/Countdown'
+import Form from './components/Form';
 
 const App = () => {
   return (
     <div className="App">
       <Header />
+      <Form />
     </div>
   );
 }
