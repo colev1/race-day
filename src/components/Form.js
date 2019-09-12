@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Countdown from 'react-countdown-now';
 import Dropdown from 'react-dropdown';
+import './Form.scss'
 
 
     
@@ -9,6 +10,8 @@ class Form extends Component {
         super();
         this.state = {
             month: '',
+            day: '',
+            date: ''
         }
     }
 
@@ -18,9 +21,21 @@ class Form extends Component {
         })
     }
 
+    startCountdown = (e) => {
+        e.preventDefault()
+        const months = [
+            'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+          ]
+        const date = new Date (2019, months.indexOf(this.state.month))
+        this.setState({
+            date
+        })
+        
+    }
+
     render() {
 
-        const options = [
+        const months = [
             'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
           ]
 
@@ -29,20 +44,21 @@ class Form extends Component {
             if (completed) {
               return <div> race day! </div>;
             } else {
-              return <span>{days} days {hours}:{minutes}:{seconds}</span>;
+              return <span> COUNTDOWN:  {days} days {hours} hours {minutes} mins {seconds} seconds</span>;
             }
           };
 
         return (
             <div>
-                <form>
-                    <Dropdown options={options} onChange={this.setMonth} value={options[0]} placeholder="Select a month" />
-
-                    <Countdown
-                        date={new Date(2019, 10, 3, 9, 0, 0, 0)}
-                        renderer={renderer}
-                    />,
+                <form onSubmit={this.startCountdown}>
+                    <Dropdown options={months} onChange={this.setMonth} value={this.state.month} placeholder="month" />
+                    <input placeholder='day'/>
+                    <button> start countdown </button>
                 </form>
+                <Countdown
+                    date={this.state.date}
+                    renderer={renderer}
+                />,
             </div>
         )
     }
